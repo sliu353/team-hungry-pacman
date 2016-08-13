@@ -16,32 +16,27 @@
         counterForHtml++;
     }
 }
-@{
-    var counterForScript = 0;
-    foreach (var restaurantObject in Model.RestaurantJson)
-    {
-        var variableNameForJs = "restaurant" + counterForScript;
-        <script>
-            $(function(){
-                $("#id-@counterForScript").append("<span>" + @restaurantObject + "<span>");               
-            })
-        </script>
-    }
-}
-<script>
-    $(function(){
-        var JSONObjects = []
-        @{ 
-            foreach(var json in Model.RestaurantJson)
+
+
+    <script>
+        var counterForScript = 0;
+        var restaurants = [];
+        var timeNow = 
+        @{var counter = 4;
+            foreach (var restaurantObject in Model.RestaurantJson)
             {
-                var variableNameForJs = "restaurant" + counterForScript;
+
                 <text>
 
-                    var @variableNameForJs = @json;
-        $("#id-@counterForScript").append("<span>" + @variableNameForJs + "<span>");
+        var a = @Html.Raw(restaurantObject);
+
+                    restaurants.push(a);
                 </text>
-                counterForScript++;
-            }
-        }
-    })
-</script>
+                    }
+                counter--;
+                
+       }
+
+    </script>
+
+

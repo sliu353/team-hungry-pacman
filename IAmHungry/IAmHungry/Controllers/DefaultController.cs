@@ -51,7 +51,8 @@ namespace IAmHungry.Controllers
                 }
                // restaurantString.Split("\n".ToArray()).Where(x => x.Contains());
             }
-            RestaurantInfo restaurantJson = new RestaurantInfo() { RestaurantJson = restaurantList };
+            RestaurantInfo restaurantJson = new RestaurantInfo() { RestaurantJson = new List<string>()};
+            restaurantList.ForEach(x => restaurantJson.RestaurantJson.Add(WebUtility.HtmlDecode(x)));
             return (View("AskForTime", restaurantJson));
   
             //foreach(var restaurant in dynObj.)
