@@ -18,6 +18,17 @@ a:hover {
   background-color: #fff056;
 }
 
+/*Still Hungry button CENTER*/
+.wrapper {
+    text-align: center;
+}
+.againbutton {
+    max-width:30%;
+    max-height:30%;
+}
+.againbutton:hover {
+   padding:1px;
+}
 
 /*
  * Base structure
