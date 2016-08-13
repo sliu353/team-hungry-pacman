@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div id="map"></div>
+@using (Html.BeginForm("Index", "Default", FormMethod.Post, new { id = "myForm" }))
+{
+    <input type="hidden" id="latitude" name="latitude" />
+    <input type="hidden" id="longitude" name="longitude" />
+    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+    <input type="time" id="time" name="time" />
+    <button class="alert-info">Find Me!</button>
+}
+
+<script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function getLocation() {
+
+        var input = (document.getElementById('pac-input'));
+
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener('place_changed', function() {
+
+            var place = autocomplete.getPlace();
+            $("#latitude").val(place.geometry.location.lat());
+            $("#longitude").val(place.geometry.location.lng());
+            
+        });
+
+      }
+
+      function submitForm() {
+          document.getElementById("myForm").submit();
+      }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHCEe0fd5bCiRC1q83p4T0AuGPC7g4PIw&libraries=places&callback=getLocation"
+        async defer></script>
+

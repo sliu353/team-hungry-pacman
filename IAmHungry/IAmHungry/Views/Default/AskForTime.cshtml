@@ -1,0 +1,47 @@
+﻿@model IAmHungry.Models.RestaurantInfo
+
+@{
+    ViewBag.Title = "AskForTime";
+}
+
+<h2>AskForTime</h2>
+
+@{
+    var counterForHtml = 0;
+    foreach (var json in Model.RestaurantJson)
+    {
+        <div id="id-@counterForHtml">
+
+        </div>
+        counterForHtml++;
+    }
+}
+@{
+    var counterForScript = 0;
+    foreach (var restaurantObject in Model.RestaurantJson)
+    {
+        var variableNameForJs = "restaurant" + counterForScript;
+        <script>
+            $(function(){
+                $("#id-@counterForScript").append("<span>" + @restaurantObject + "<span>");               
+            })
+        </script>
+    }
+}
+<script>
+    $(function(){
+        var JSONObjects = []
+        @{ 
+            foreach(var json in Model.RestaurantJson)
+            {
+                var variableNameForJs = "restaurant" + counterForScript;
+                <text>
+
+                    var @variableNameForJs = @json;
+        $("#id-@counterForScript").append("<span>" + @variableNameForJs + "<span>");
+                </text>
+                counterForScript++;
+            }
+        }
+    })
+</script>
