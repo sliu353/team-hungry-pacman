@@ -170,3 +170,41 @@ body {
 .detail{
   margin-top: 25px;
 }
+
+
+/*Quad border*/
+.border{
+    padding-top: 13px;
+  }
+
+.img-hover{
+ transition: all ease 0.3s;    
+ box-shadow: 0 0 0 5px none inset;
+
+
+}
+
+.img-hover:hover{
+    transition: all ease 0.3s;
+    box-shadow: 0 0 0 7px #fff056 inset;
+    padding: 0 13px 0px;
+    color: #fff056;
+}
+
+.center-block{
+  display:block;
+  margin: 0 auto;
+}
+
+.btn-custom {
+    display: block;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #fff056;
+    color: #191919;
+}
+
+@media only screen and (min-width : 768px) {
+
+}
