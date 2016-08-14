@@ -281,6 +281,7 @@
 
       }
       function initMap(pos, place) {
+          document.getElementById("map").style.height = '700px';
           document.getElementById("content").style.display = 'none';
           console.log(place.name);
           map = new google.maps.Map(document.getElementById('map'), {
