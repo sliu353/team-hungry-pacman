@@ -83,21 +83,26 @@
       }
 
       function callbackTwo(place, status) {
-          if (place != null) {
+          if (place !== null) {
               if (place.opening_hours.open_now) {
-                  var restaurant = {
-                      name: place.name, // name
-                      address: place.formatted_address, // address
-                      icon: place.icon, // icon
-                      photos: place.photos, // array of photos
-                      website: place.website, // website
-                      rating: place.rating, // rating
-                      position: place.geometry.location, // location
-                      times: place.opening_hours.weekday_text[6], // opening times
+                  if (place.opening_hours.weekday_text[6] !== null) {
+                    var restaurant = {
+                        name: place.name, // name
+                        address: place.formatted_address, // address
+                        icon: place.icon, // icon
+                        photos: place.photos, // array of photos
+                        website: place.website, // website
+                        rating: place.rating, // rating
+                        position: place.geometry.location, // location
+                        times: place.opening_hours.weekday_text[6], // opening times
 
+                    }
+
+                    places.push(restaurant);
+                    if(places.length === 4) {
+                        document.getElementById("restaurant-one").src = restaurant.photos[0].getUrl({'maxWidth' : 35, 'maxHeight' : 35});
+                    }
                   }
-
-                  places.push(restaurant);
               }
               
           } else {
