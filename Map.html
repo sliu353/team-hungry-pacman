@@ -28,7 +28,7 @@
       var place;
 
       // Initialise and display map
-      function initMap() {
+      function initMap(pos, place) {
 
           map = new google.maps.Map(document.getElementById('map'), {
           center: pos,
@@ -44,7 +44,13 @@
         infoWindow = new google.maps.InfoWindow();
         service = new google.maps.places.PlacesService(map);
 
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+        });
+
       }
+      
 
      
 
@@ -59,15 +65,9 @@
           }
         });
 
-        google.maps.event.addListener(marker, 'click', function() {
-          service.getDetails(place, function(result, status) {
-            if (status !== google.maps.places.PlacesServiceStatus.OK) {
-              console.error(status);
-              return;
-            }
-            infoWindow.setContent(result.name);
+        google.maps.event.addListener(marker, 'click', function (place) {
+            infoWindow.setContent(place.name);
             infoWindow.open(map, marker);
-          });
         });
       }
     </script>

@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Cover Template for Bootstrap</title>
+    <title>Team Hungry Pacman</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css
@@ -30,7 +30,7 @@
 
   <body>
 
-    <div class="site-wrapper">
+    <div class="site-wrapper" id="content">
 
       <div class="site-wrapper-inner">
 
@@ -48,7 +48,7 @@
             <div><div class="col-sm-offset-2 col-sm-4"> 
               <div class="img-hover">
                <figure class = "border">
-                <img class="img-responsive center-block" id="restaurant-one" src = "images\download.png">
+                <img class="img-responsive center-block" style="width: 50%; height: 50%" id="restaurant-one" src = "images\pacman.gif">
             </figure>
             <p id="name-one">
                 
@@ -63,7 +63,7 @@
             <div><div class="col-sm-4"> 
               <div class="img-hover">
                <figure class = "border">
-                <img class="img-responsive center-block" id="restaurant-two" src = "images\download.png">
+                <img class="img-responsive center-block" style="width: 50%; height: 50%" id="restaurant-two" src = "images\pacman.gif">
             </figure>
                   <p id="name-two">
 
@@ -82,7 +82,7 @@
             <div><div class="col-sm-offset-2 col-sm-4"> 
               <div class="img-hover">
                <figure class = "border">
-                <img class="img-responsive center-block" id="restaurant-three" src = "images\download.png">
+                <img class="img-responsive center-block" style="width: 50%; height: 50%" id="restaurant-three" src = "images\pacman.gif">
             </figure>
                   <p id="name-three">
 
@@ -96,7 +96,7 @@
           <div class="col-sm-4">
             <div class="img-hover"> 
           <figure class = "border">
-                <img class="img-responsive center-block" id="restaurant-four" src = "images\download.png">
+                <img class="img-responsive center-block" style="width: 50%; height: 50%" id="restaurant-four" src = "images\pacman.gif">
             </figure>
                 <p id="name-four">
 
@@ -120,29 +120,31 @@
       
     </div>
     </div>
+      <div id="map"></div>
 
     <footer class = "container">
             <div class="row">
             <p class = "col-sm-5">
-                &copy; 2016 Team Hungry
+                Brought to you by Team Hungry Pacman
                 </p>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-            <div id="main"></div>
+            <div id="main"></div>            
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZRt6vhd5XYiRrcR5geyLrpd4uwzMHM0w&libraries=places,visualization" async defer></script>
   </body>
 <script>
 
       // Global variables
-        var map;
-        var service;
+      var map;
+      var service;
       var infoWindow;
       var radius = 300;
       var pos;
       var places = new Array();
+      var i;
 
       useCurrentLocation();
 
@@ -177,7 +179,7 @@
 
           var request = {
               location: new google.maps.LatLng(pos.lat, pos.lng),
-              radius: 1000,
+              radius: 300,
               type: "restaurant",
           }
 
@@ -226,17 +228,47 @@
                                   document.getElementById("name-one").innerHTML = places[0].name;
                                   document.getElementById("hours-one").innerHTML = places[0].times.substring(7, places[0].times.length);
 
-                                  document.getElementById("restaurant-two").src = places[1].photos[1].getUrl({ 'maxWidth': 210, 'maxHeight': 144 });
+                                  document.getElementById("restaurant-two").src = places[1].photos[0].getUrl({ 'maxWidth': 210, 'maxHeight': 144 });
                                   document.getElementById("name-two").innerHTML = places[1].name;
                                   document.getElementById("hours-two").innerHTML = places[1].times.substring(7, places[1].times.length);
 
-                                  document.getElementById("restaurant-three").src = places[2].photos[2].getUrl({ 'maxWidth': 210, 'maxHeight': 144 });
+                                  document.getElementById("restaurant-three").src = places[2].photos[0].getUrl({ 'maxWidth': 210, 'maxHeight': 144 });
                                   document.getElementById("name-three").innerHTML = places[2].name;
                                   document.getElementById("hours-three").innerHTML = places[2].times.substring(7, places[2].times.length);
 
-                                  document.getElementById("restaurant-four").src = places[3].photos[3].getUrl({ 'maxWidth': 210, 'maxHeight': 144 });
+                                  document.getElementById("restaurant-four").src = places[3].photos[0].getUrl({ 'maxWidth': 210, 'maxHeight': 144 });
                                   document.getElementById("name-four").innerHTML = places[3].name;
                                   document.getElementById("hours-four").innerHTML = places[3].times.substring(7, places[3].times.length);
+
+                                  var images = document.getElementsByTagName("img");
+
+                                      var img1 = images[1];
+                                      img1.addEventListener("click", function () {
+                                          var place = places[0];
+                                          console.log(place.name);
+                                          initMap(pos, place)
+                                      });
+
+                                      var img2 = images[2];
+                                      img2.addEventListener("click", function () {
+                                          var place = places[1];
+                                          console.log(place.name);
+                                          initMap(pos, place)
+                                      });
+
+                                      var img3 = images[3];
+                                      img3.addEventListener("click", function () {
+                                          var place = places[2];
+                                          console.log(place.name);
+                                          initMap(pos, place)
+                                      });
+
+                                      var img4 = images[4];
+                                      img4.addEventListener("click", function () {
+                                          var place = places[3];
+                                          console.log(place.name);
+                                          initMap(pos, place)
+                                      });
                               }
                           }
                       }
@@ -247,6 +279,48 @@
               console.log(status);
           }
 
+      }
+      function initMap(pos, place) {
+          document.getElementById("content").style.display = 'none';
+          console.log(place.name);
+          map = new google.maps.Map(document.getElementById('map'), {
+              center: pos,
+              zoom: 15,
+              styles: [{
+                  stylers: [{ visibility: 'simplified' }]
+              }, {
+                  elementType: 'labels',
+                  stylers: [{ visibility: 'off' }]
+              }]
+          });
+          
+          infoWindow = new google.maps.InfoWindow();
+          service = new google.maps.places.PlacesService(map);
+
+          var marker = new google.maps.Marker({
+              position: pos,
+              map: map,
+          });
+
+          addMarker(place);
+
+      }
+
+      function addMarker(place) {
+          var marker = new google.maps.Marker({
+              map: map,
+              position: place.position,
+              icon: {
+                  url: 'http://maps.gstatic.com/mapfiles/circle.png',
+                  anchor: new google.maps.Point(10, 10),
+                  scaledSize: new google.maps.Size(10, 17)
+              }
+          });
+
+          google.maps.event.addListener(marker, 'click', function (place) {
+              infoWindow.setContent(place.name);
+              infoWindow.open(map, marker);
+          });
       }
 
 </script>
