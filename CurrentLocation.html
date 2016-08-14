@@ -17,12 +17,12 @@
     <script>
 
       // Global variables
-      var map;
+        var map;
+        var service;
       var infoWindow;
-      var service;
       var radius = 300;
       var pos;
-      var places;
+      var places = new Array();
 
       useCurrentLocation();
 
@@ -51,29 +51,66 @@
        
 
       function searchUsingLocation(pos) {
-          document.writeln(pos.lat);
-          document.writeln(pos.lng);
+          map = new google.maps.Map(document.createElement('div'));
+          service = new google.maps.places
+          .PlacesService(map);
 
-          var JSON = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + pos.lat + "," + pos.lng + "&radius=500&type=restaurant&key=AIzaSyCHCEe0fd5bCiRC1q83p4T0AuGPC7g4PIw";
-          var object = httpGetAsync(JSON, function (object) {
-              console.log(object);
-          });
+          var request = {
+              location: new google.maps.LatLng(pos.lat, pos.lng),
+              radius: 1000,
+              type: "restaurant",
+          }
+
+          service.nearbySearch(request, callback);
+
+          console.log(places.length);
+
+          
+      }
+
+      function callback(results, status) {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                  var place = results[i];
+                  var request = {
+                      placeId: place.place_id,
+
+                  }
+                  service.getDetails(request, callbackTwo);
+
+              }
+          }
+      }
+
+      function callbackTwo(place, status) {
+          if (place != null) {
+              if (place.opening_hours.open_now) {
+                  var restaurant = {
+                      name: place.name, // name
+                      address: place.formatted_address, // address
+                      icon: place.icon, // icon
+                      photos: place.photos, // array of photos
+                      website: place.website, // website
+                      rating: place.rating, // rating
+                      position: place.geometry.location, // location
+                      times: place.opening_hours.weekday_text[6], // opening times
+
+                  }
+
+                  places.push(restaurant);
+              }
+              
+          } else {
+              console.log(status);
+          }
+
       }
        
-      function httpGetAsync(theUrl, callback) {
-          var xmlHttp = new XMLHttpRequest();
-          xmlHttp.onreadystatechange = function () {
-              if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  callback(xmlHttp.responseText);
-          }
-          xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-          xmlHttp.send(null);
-      } 
     </script>
 </head>
 <body>
-    <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHCEe0fd5bCiRC1q83p4T0AuGPC7g4PIw&libraries=places,visualization" async defer></script>
+    <div id="main"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZRt6vhd5XYiRrcR5geyLrpd4uwzMHM0w&libraries=places,visualization" async defer></script>
 </body>
 </html>
 
