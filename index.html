@@ -133,7 +133,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
             <div id="main"></div>            
-            <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places,visualization" async defer></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGs0EWNdioTn2rOt3Sczf6OsVBdVG6hE0&libraries=places,visualization" async defer></script>
   </body>
 <script>
 
@@ -141,7 +141,6 @@
       var map;
       var service;
       var infoWindow;
-      var radius = 300;
       var pos;
       var places = new Array();
       var i;
@@ -193,6 +192,7 @@
           if (status == google.maps.places.PlacesServiceStatus.OK) {
               for (var i = 0; i < results.length; i++) {
                   var place = results[i];
+                  console.log(place.name);
                   var request = {
                       placeId: place.place_id,
 
@@ -220,7 +220,6 @@
                                   times: place.opening_hours.weekday_text[6], // opening times
 
                               }
-
 
                               places.push(restaurant);
                               if (places.length === 4) {
